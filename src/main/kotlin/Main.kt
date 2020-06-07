@@ -6,7 +6,6 @@ import database.TelegramUser
 import handler.UnknownCommandHandler
 import me.ivmg.telegram.bot
 import me.ivmg.telegram.dispatch
-import okhttp3.logging.HttpLoggingInterceptor
 import org.apache.log4j.PropertyConfigurator
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -14,11 +13,10 @@ import java.io.FileInputStream
 import java.util.*
 
 fun main() {
-    initDatabase()
+//    initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
         token = System.getenv("TOKEN")
-        logLevel = HttpLoggingInterceptor.Level.BASIC
         dispatch {
             telegramCommands.addAll(listOf(
                 StartCommand(),
