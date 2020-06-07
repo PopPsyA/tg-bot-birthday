@@ -6,6 +6,7 @@ import database.TelegramUser
 import handler.UnknownCommandHandler
 import me.ivmg.telegram.bot
 import me.ivmg.telegram.dispatch
+import okhttp3.logging.HttpLoggingInterceptor
 import org.apache.log4j.PropertyConfigurator
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -17,6 +18,7 @@ fun main() {
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
         token = System.getenv("TOKEN")
+        logLevel = HttpLoggingInterceptor.Level.NONE
         dispatch {
             telegramCommands.addAll(listOf(
                 StartCommand(),
@@ -40,16 +42,16 @@ fun main() {
 }
 
 private fun initDatabase(){
-    PropertyConfigurator.configure(Properties().apply {
-        load(FileInputStream("src/log4j.properties"))
-    })
-    Database.connect(
-        url = System.getenv("DB_URL"),
-        user = System.getenv("USER"),
-        password = System.getenv("PASSWORD")
-    )
-    transaction {
-        SchemaUtils.createMissingTablesAndColumns(TelegramUser)
-        addLogger(Slf4jSqlDebugLogger)
-    }
+//    PropertyConfigurator.configure(Properties().apply {
+//        load(FileInputStream("src/log4j.properties"))
+//    })
+//    Database.connect(
+//        url = System.getenv("DB_URL"),
+//        user = System.getenv("USER"),
+//        password = System.getenv("PASSWORD")
+//    )
+//    transaction {
+//        SchemaUtils.createMissingTablesAndColumns(TelegramUser)
+//        addLogger(Slf4jSqlDebugLogger)
+//    }
 }
