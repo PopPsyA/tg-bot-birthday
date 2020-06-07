@@ -17,7 +17,7 @@ fun main() {
 //    initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
-        token = "1181585001:AAEKMQ-t5hA8ZT5W83cV7fl_ytWrsqRW21M"
+        token = System.getenv("TOKEN")
         logLevel = HttpLoggingInterceptor.Level.BASIC
         dispatch {
             telegramCommands.addAll(listOf(
