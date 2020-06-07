@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.util.*
 
 fun main() {
-//    initDatabase()
+    initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
         token = System.getenv("TOKEN")
