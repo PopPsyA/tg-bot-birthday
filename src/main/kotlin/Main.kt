@@ -2,10 +2,6 @@ import command.TelegramCommand
 import command.add.BirthdayCommand
 import command.start.StartCommand
 import command.test.TestCommand
-import database.DbBotConfig.DB_URL
-import database.DbBotConfig.PASSWORD
-import database.DbBotConfig.TOKEN
-import database.DbBotConfig.USER
 import database.TelegramUser
 import handler.UnknownCommandHandler
 import me.ivmg.telegram.bot
@@ -21,7 +17,7 @@ fun main() {
     initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
-        token = TOKEN
+        token = System.getenv("TOKEN")
         logLevel = HttpLoggingInterceptor.Level.BASIC
         dispatch {
             telegramCommands.addAll(listOf(
@@ -50,9 +46,9 @@ private fun initDatabase(){
         load(FileInputStream("src/log4j.properties"))
     })
     Database.connect(
-        url = DB_URL,
-        user = USER,
-        password = PASSWORD
+        url = System.getenv("DB_URL"),
+        user = System.getenv("USER"),
+        password = System.getenv("PASSWORD")
     )
     transaction {
         SchemaUtils.createMissingTablesAndColumns(TelegramUser)
