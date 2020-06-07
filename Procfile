@@ -1,1 +1,0 @@
-web: java -jar build/libs/telegram.birthday.bot-1.0.jar
