@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.util.*
 
 fun main() {
-//    initDatabase()
+    initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
     bot {
         token = System.getenv("TOKEN")
@@ -42,16 +42,16 @@ fun main() {
 }
 
 private fun initDatabase(){
-//    PropertyConfigurator.configure(Properties().apply {
-//        load(FileInputStream("src/log4j.properties"))
-//    })
-//    Database.connect(
-//        url = System.getenv("DB_URL"),
-//        user = System.getenv("USER"),
-//        password = System.getenv("PASSWORD")
-//    )
-//    transaction {
-//        SchemaUtils.createMissingTablesAndColumns(TelegramUser)
-//        addLogger(Slf4jSqlDebugLogger)
-//    }
+    PropertyConfigurator.configure(Properties().apply {
+        load(FileInputStream("src/log4j.properties"))
+    })
+    Database.connect(
+        url = System.getenv("DB_URL"),
+        user = System.getenv("USER"),
+        password = System.getenv("PASSWORD")
+    )
+    transaction {
+        SchemaUtils.createMissingTablesAndColumns(TelegramUser)
+        addLogger(Slf4jSqlDebugLogger)
+    }
 }
