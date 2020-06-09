@@ -19,7 +19,8 @@ class WhenMyBirthday: AbstractTelegramCommand(){
                 ?.get(TelegramUser.dateOfBirth)
         }
         bot.sendMessage(update,
-            if (dateOfBirth != null) "Ваш день рожденье $dateOfBirth" else "Укажите вашу день рождение командой /add"
+            if (dateOfBirth != null) "Ваш день рождения $dateOfBirth"
+            else "Укажите ваш день рождение командой /add"
         )
     }
 

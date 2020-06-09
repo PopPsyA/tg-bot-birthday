@@ -4,6 +4,7 @@ import command.start.StartCommand
 import command.whenmybirthday.WhenMyBirthday
 import database.TelegramUser
 import handler.UnknownCommandHandler
+import handler.birthdaychecker.BirthdayCheckerHandler
 import me.ivmg.telegram.bot
 import me.ivmg.telegram.dispatch
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +28,7 @@ fun main() {
             ).onEach { telegramCommand ->
                 addHandler(telegramCommand.handlerCommand())
             })
-            listOf(UnknownCommandHandler(telegramCommands)).forEach { telegramCommandHandler ->
+            listOf(UnknownCommandHandler(telegramCommands), BirthdayCheckerHandler()).forEach { telegramCommandHandler ->
                 addHandler(telegramCommandHandler.handler())
             }
         }
