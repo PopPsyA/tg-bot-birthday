@@ -25,7 +25,6 @@ class BirthdayCommand(dispatcher: Dispatcher) : AbstractTelegramCommand() {
     )
 
     override fun handlerUpdate(): HandleUpdate = { bot, update ->
-        println("handlerUpdate message ${update.message?.text}")
         questionStateMachine.start(bot, update)
     }
 
