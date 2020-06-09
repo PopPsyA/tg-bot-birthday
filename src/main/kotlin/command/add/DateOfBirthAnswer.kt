@@ -15,8 +15,8 @@ class DateOfBirthAnswer: Answer {
                 TelegramUser.replace {
                     it[id] = this@apply.id
                     it[name] = firstName
-                    it[secondName] = lastName.orEmpty()
-                    it[login] = "@${username.orEmpty()}"
+                    it[secondName] = "$lastName"
+                    it[login] = if (username != null) "@${username}" else "null"
                     it[dateOfBirth] = update.message!!.text.orEmpty()
                 }
             }
