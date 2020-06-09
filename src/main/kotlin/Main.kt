@@ -1,7 +1,6 @@
 import command.TelegramCommand
 import command.add.BirthdayCommand
 import command.start.StartCommand
-import command.test.TestCommand
 import command.whenmybirthday.WhenMyBirthday
 import database.TelegramUser
 import handler.UnknownCommandHandler
@@ -24,7 +23,6 @@ fun main() {
             telegramCommands.addAll(listOf(
                 StartCommand(),
                 BirthdayCommand(this),
-                TestCommand(),
                 WhenMyBirthday()
             ).onEach { telegramCommand ->
                 addHandler(telegramCommand.handlerCommand())

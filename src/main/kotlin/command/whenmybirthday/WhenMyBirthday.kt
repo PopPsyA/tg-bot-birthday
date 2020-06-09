@@ -7,6 +7,8 @@ import me.ivmg.telegram.entities.BotCommand
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
+import common.sendMessage
+
 class WhenMyBirthday: AbstractTelegramCommand(){
 
     override fun handlerUpdate(): HandleUpdate = { bot, update ->
@@ -16,9 +18,8 @@ class WhenMyBirthday: AbstractTelegramCommand(){
                 .firstOrNull()
                 ?.get(TelegramUser.dateOfBirth)
         }
-        bot.sendMessage(
-            chatId = update.message!!.chat.id,
-            text = "Вы родились $dateOfBirth"
+        bot.sendMessage(update,
+            if (dateOfBirth != null) "Ваш день рожденье $dateOfBirth" else "Укажите вашу день рождение командой /add"
         )
     }
 
