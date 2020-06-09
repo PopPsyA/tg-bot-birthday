@@ -6,6 +6,7 @@ import me.ivmg.telegram.entities.BotCommand
 
 import common.sendMessage
 import logDebug
+import java.util.*
 
 class StartCommand: AbstractTelegramCommand() {
 
@@ -13,9 +14,9 @@ class StartCommand: AbstractTelegramCommand() {
         val message = update.message!!
         bot.sendMessage(
             update,
-            msg = "Привет ${message.from?.firstName.orEmpty()} ${message.from?.lastName.orEmpty()}"
+            "Привет ${message.from?.firstName.orEmpty()} ${message.from?.lastName.orEmpty()}"
         )
-        logDebug("Start with languageCode = ${message.from?.languageCode}")
+        logDebug("Current hour ${Calendar.getInstance().get(Calendar.HOUR_OF_DAY)}")
     }
 
     override fun botCommand() = BotCommand(
