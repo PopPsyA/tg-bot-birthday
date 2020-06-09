@@ -13,7 +13,7 @@ class WhenMyBirthday: AbstractTelegramCommand(){
         val dateOfBirth = transaction {
             TelegramUser
                 .select{ TelegramUser.id eq update.message!!.from!!.id }
-                .map { it.getOrNull(TelegramUser.dateOfBirth) }
+                .map { it[(TelegramUser.dateOfBirth)] }
         }
         bot.sendMessage(
             chatId = update.message!!.chat.id,

@@ -48,9 +48,10 @@ private fun initDatabase(){
         load(FileInputStream("src/log4j.properties"))
     })
     Database.connect(
-        url = System.getenv("DB_URL"),
+        url = System.getenv("CLEARDB_DATABASE_URL"),
         user = System.getenv("USER"),
-        password = System.getenv("PASSWORD")
+        password = System.getenv("PASSWORD"),
+        driver = "com.mysql.cj.jdbc.Driver"
     )
     transaction {
         SchemaUtils.createMissingTablesAndColumns(TelegramUser)
