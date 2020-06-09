@@ -2,9 +2,11 @@ package command.whenmybirthday
 
 import command.AbstractTelegramCommand
 import database.TelegramUser
+import logDebug
 import me.ivmg.telegram.HandleUpdate
 import me.ivmg.telegram.entities.BotCommand
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class WhenMyBirthday: AbstractTelegramCommand(){
@@ -12,8 +14,10 @@ class WhenMyBirthday: AbstractTelegramCommand(){
     override fun handlerUpdate(): HandleUpdate = { bot, update ->
         val dateOfBirth = transaction {
             TelegramUser
-                .select{ TelegramUser.id eq update.message!!.from!!.id }
-                .map { it[(TelegramUser.dateOfBirth)] }
+                .selectAll()
+                .forEach {
+                    logDebug("Login ${it[TelegramUser.login]}, ${it[TelegramUser.name]}, ${it[TelegramUser.id]}, ${it[TelegramUser.dateOfBirth]}")
+                }
         }
         bot.sendMessage(
             chatId = update.message!!.chat.id,

@@ -6,8 +6,8 @@ object TelegramUser: Table("telegram_users") {
     val id = long("tg_id")
     val name = text("tg_name")
     val secondName = text("tg_second_name")
-    val login = text("tg_login")
-    val dateOfBirth = varchar("tg_date_of_birth", 10)
+    val login = text("tg_login").nullable()
+    val dateOfBirth = varchar("tg_date_of_birth", 10, collate = "*")
 
     override val primaryKey = PrimaryKey(id)
 }

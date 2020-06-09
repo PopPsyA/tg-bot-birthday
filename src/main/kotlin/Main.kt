@@ -49,9 +49,8 @@ private fun initDatabase(){
     })
     Database.connect(
         url = System.getenv("CLEARDB_DATABASE_URL"),
-        user = System.getenv("USER"),
-        password = System.getenv("PASSWORD"),
-        driver = "com.mysql.cj.jdbc.Driver"
+        user = System.getenv("DB_USER"),
+        password = System.getenv("DB_PASSWORD")
     )
     transaction {
         SchemaUtils.createMissingTablesAndColumns(TelegramUser)
