@@ -1,6 +1,7 @@
 package handler.birthdaychecker
 
 import common.birthdayTemplates
+import common.randomBirthdayTemplate
 import common.sendMessage
 import database.TelegramUser
 import handler.TelegramHandler
@@ -41,7 +42,7 @@ class BirthdayCheckerHandler: Handler(BirthdayHandlerUpdate()), TelegramHandler 
                             if (currentDate.monthValue == parsedDateOfBirth.monthValue
                                 && currentDate.dayOfMonth == parsedDateOfBirth.dayOfMonth){
                                 bot.sendMessage(update,
-                                    birthdayTemplates[Random.nextInt(birthdayTemplates.size)]
+                                    randomBirthdayTemplate()
                                 )
                             }
                         }

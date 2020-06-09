@@ -1,5 +1,7 @@
 package common
 
+import kotlin.random.Random
+
 val birthdayTemplates = listOf(
     "Дорогой именинник! В день твоего рождения от всего сердца желаем...\n" +
             "Чтобы зеленый мерседес твоей жизни легко и счастливо вез тебя по жизни, преодолевая все препятствия и трудности, чтобы дорога шла по цветущему саду и чтобы рядом были все те, в ком ты нуждаешься. За твое благополучие и успех!\n",
@@ -139,3 +141,5 @@ val birthdayTemplates = listOf(
             "И чтобы не встpетились в жизни несчастья,\n" +
             "А если уж слезы - то только от счастья!"
 )
+
+fun randomBirthdayTemplate() = birthdayTemplates[Random.nextInt(birthdayTemplates.size)]
