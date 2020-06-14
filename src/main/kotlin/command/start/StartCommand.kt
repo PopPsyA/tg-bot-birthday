@@ -12,7 +12,8 @@ class StartCommand: AbstractTelegramCommand() {
         val message = update.message!!
         bot.sendMessage(
             update,
-            "Привет ${message.from?.firstName.orEmpty()} ${message.from?.lastName.orEmpty()}"
+            "Привет ${message.from?.firstName.orEmpty()} ${message.from?.lastName.orEmpty()}\n" +
+                    "Напиши команду /add чтоб я смог тебя во время поздравить"
         )
     }
 
