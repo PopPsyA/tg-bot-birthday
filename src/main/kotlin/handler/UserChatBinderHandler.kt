@@ -1,6 +1,7 @@
 package handler
 
 import common.chatId
+import common.logException
 import common.userId
 import database.TelegramChat
 import me.ivmg.telegram.Bot
@@ -15,16 +16,20 @@ class UserChatBinderHandler: AnyHandler(UserChatBinderHandleUpdate()) {
 
     private class UserChatBinderHandleUpdate: HandleUpdate{
         override fun invoke(bot: Bot, update: Update) {
-            transaction {
-                if (TelegramChat
-                        .select { TelegramChat.userId.eq(update.userId()).and(TelegramChat.id.eq(update.chatId())) }
-                        .firstOrNull() == null){
-                    TelegramChat.insertIgnore {
-                        it[id] = update.chatId()
-                        it[userId] = update.userId()
-                        it[chatType] = update.message!!.chat.type
+            try{
+                transaction {
+                    if (TelegramChat
+                            .select { TelegramChat.userId.eq(update.userId()).and(TelegramChat.id.eq(update.chatId())) }
+                            .firstOrNull() == null){
+                        TelegramChat.insertIgnore {
+                            it[id] = update.chatId()
+                            it[userId] = update.userId()
+                            it[chatType] = update.message!!.chat.type
+                        }
                     }
                 }
+            } catch (e: Exception) {
+                logException("Exception on UserChatBinderHandleUpdate", e)
             }
         }
     }
