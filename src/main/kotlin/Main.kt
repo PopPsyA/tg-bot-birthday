@@ -4,12 +4,15 @@ import command.change.ChangeBirthdayCommand
 import command.start.StartCommand
 import command.whenmybirthday.WhenMyBirthdayCommand
 import common.BirthdayCheckerService
+import common.logDebug
+import common.logException
 import database.TelegramChat
 import database.TelegramUser
 import handler.UnknownCommandHandler
 import handler.UserChatBinderHandler
 import me.ivmg.telegram.bot
 import me.ivmg.telegram.dispatch
+import me.ivmg.telegram.dispatcher.telegramError
 import okhttp3.logging.HttpLoggingInterceptor
 import org.apache.log4j.PropertyConfigurator
 import org.jetbrains.exposed.sql.*
@@ -34,6 +37,9 @@ fun main() {
             })
             listOf(UnknownCommandHandler(telegramCommands), UserChatBinderHandler()).forEach { telegramCommandHandler ->
                 addHandler(telegramCommandHandler.handler())
+            }
+            telegramError { _, telegramError ->
+                logDebug("Telegram error, response = ${telegramError.getErrorMessage()}")
             }
         }
     }.apply {
