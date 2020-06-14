@@ -5,7 +5,6 @@ import command.start.StartCommand
 import command.whenmybirthday.WhenMyBirthdayCommand
 import common.BirthdayCheckerService
 import common.logDebug
-import common.logException
 import database.TelegramChat
 import database.TelegramUser
 import handler.UnknownCommandHandler

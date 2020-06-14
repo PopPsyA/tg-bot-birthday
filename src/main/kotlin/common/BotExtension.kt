@@ -13,3 +13,4 @@ fun Bot.sendMessage(update: Update, msg: String){
 fun Update.userId() = message!!.from!!.id
 fun Update.chatId() = message!!.chat.id
 fun Update.textMessage() = message!!.text
+fun Update.chatType() = message!!.chat.type

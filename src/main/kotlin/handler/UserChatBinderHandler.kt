@@ -1,8 +1,6 @@
 package handler
 
-import common.chatId
-import common.logException
-import common.userId
+import common.*
 import database.TelegramChat
 import me.ivmg.telegram.Bot
 import me.ivmg.telegram.HandleUpdate
@@ -29,6 +27,9 @@ class UserChatBinderHandler: AnyHandler(UserChatBinderHandleUpdate()) {
                     }
                 }
             } catch (e: Exception) {
+                if (!ChatType.isGroup(update.chatType())){
+                    bot.sendMessage(update, "Упс...что-то пошло не так. Повторите команду позже")
+                }
                 logException("Exception on UserChatBinderHandleUpdate", e)
             }
         }
