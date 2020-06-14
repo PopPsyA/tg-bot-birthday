@@ -1,12 +1,13 @@
 import command.TelegramCommand
-import command.add.BirthdayCommand
+import command.add.AddBirthdayCommand
+import command.change.ChangeBirthdayCommand
 import command.start.StartCommand
-import command.whenmybirthday.WhenMyBirthday
+import command.whenmybirthday.WhenMyBirthdayCommand
 import common.BirthdayCheckerService
 import database.TelegramChat
 import database.TelegramUser
 import handler.UnknownCommandHandler
-import handler.birthdaychecker.BirthdayCheckerHandler
+import handler.UserChatBinderHandler
 import me.ivmg.telegram.bot
 import me.ivmg.telegram.dispatch
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,12 +26,13 @@ fun main() {
         dispatch {
             telegramCommands.addAll(listOf(
                 StartCommand(),
-                BirthdayCommand(this),
-                WhenMyBirthday()
+                AddBirthdayCommand(this),
+                WhenMyBirthdayCommand(),
+                ChangeBirthdayCommand(this)
             ).onEach { telegramCommand ->
                 addHandler(telegramCommand.handlerCommand())
             })
-            listOf(UnknownCommandHandler(telegramCommands), BirthdayCheckerHandler()).forEach { telegramCommandHandler ->
+            listOf(UnknownCommandHandler(telegramCommands), UserChatBinderHandler()).forEach { telegramCommandHandler ->
                 addHandler(telegramCommandHandler.handler())
             }
         }
@@ -55,6 +57,7 @@ private fun initDatabase(){
         password = System.getenv("DB_PASSWORD")
     )
     transaction {
+        SchemaUtils.drop(TelegramUser, TelegramChat)
         SchemaUtils.createMissingTablesAndColumns(TelegramUser, TelegramChat)
         addLogger(Slf4jSqlDebugLogger)
     }

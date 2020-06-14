@@ -41,7 +41,6 @@ class QuestionStateMachine(private val dispatcher: Dispatcher,
         val answerValidator = question.answer().validator()
         if (!answerValidator.isValidAnswer(bot, update)){
             answerValidator.sendValidateMessage(bot, update)
-            questionIndex--
         } else {
             question
                 .answer()

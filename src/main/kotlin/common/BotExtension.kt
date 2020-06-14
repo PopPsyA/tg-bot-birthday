@@ -5,7 +5,11 @@ import me.ivmg.telegram.entities.Update
 
 fun Bot.sendMessage(update: Update, msg: String){
     sendMessage(
-        chatId = update.message!!.chat.id,
+        chatId = update.chatId(),
         text = msg
     )
 }
+
+fun Update.userId() = message!!.from!!.id
+fun Update.chatId() = message!!.chat.id
+fun Update.textMessage() = message!!.text
