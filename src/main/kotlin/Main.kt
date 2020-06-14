@@ -57,7 +57,6 @@ private fun initDatabase(){
         password = System.getenv("DB_PASSWORD")
     )
     transaction {
-        SchemaUtils.drop(TelegramUser, TelegramChat)
         SchemaUtils.createMissingTablesAndColumns(TelegramUser, TelegramChat)
         addLogger(Slf4jSqlDebugLogger)
     }
