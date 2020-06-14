@@ -2,6 +2,8 @@ import command.TelegramCommand
 import command.add.BirthdayCommand
 import command.start.StartCommand
 import command.whenmybirthday.WhenMyBirthday
+import common.BirthdayCheckerService
+import database.TelegramChat
 import database.TelegramUser
 import handler.UnknownCommandHandler
 import handler.birthdaychecker.BirthdayCheckerHandler
@@ -39,6 +41,7 @@ fun main() {
                 telegramCommand.botCommand()
             }
         )
+        BirthdayCheckerService.listen(this)
     }
 }
 
@@ -52,7 +55,7 @@ private fun initDatabase(){
         password = System.getenv("DB_PASSWORD")
     )
     transaction {
-        SchemaUtils.createMissingTablesAndColumns(TelegramUser)
+        SchemaUtils.createMissingTablesAndColumns(TelegramUser, TelegramChat)
         addLogger(Slf4jSqlDebugLogger)
     }
 }
