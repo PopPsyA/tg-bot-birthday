@@ -27,9 +27,6 @@ class UserChatBinderHandler: AnyHandler(UserChatBinderHandleUpdate()) {
                     }
                 }
             } catch (e: Exception) {
-                if (!ChatType.isGroup(update.chatType())){
-                    bot.sendMessage(update, "Упс...что-то пошло не так. Повторите команду позже")
-                }
                 logException("Exception on UserChatBinderHandleUpdate", e)
             }
         }
