@@ -5,7 +5,9 @@ import me.ivmg.telegram.entities.Update
 
 class CallbackValidator: Validator {
 
-    override fun isValidAnswer(bot: Bot, update: Update) = update.callbackQuery?.data != null
+    override fun isValidAnswer(strAnswer: String): Boolean {
+        TODO("Not yet implemented")
+    }
 
     override fun sendValidateMessage(bot: Bot, update: Update) {
         bot.sendMessage(

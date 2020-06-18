@@ -4,7 +4,7 @@ import me.ivmg.telegram.Bot
 import me.ivmg.telegram.entities.Update
 
 class EmptyValidator: Validator {
-    override fun isValidAnswer(bot: Bot, update: Update): Boolean {
+    override fun isValidAnswer(strAnswer: String): Boolean {
         return true
     }
 

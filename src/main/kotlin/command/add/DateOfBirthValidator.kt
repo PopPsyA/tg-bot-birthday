@@ -12,9 +12,8 @@ class DateOfBirthValidator: Validator {
         isLenient = false
     }
 
-    override fun isValidAnswer(bot: Bot, update: Update): Boolean {
-        val message = update.message?.text
-        return message != null && isValidDate(message)
+    override fun isValidAnswer(strAnswer: String): Boolean {
+        return isValidDate(strAnswer)
     }
 
     override fun sendValidateMessage(bot: Bot, update: Update) {
