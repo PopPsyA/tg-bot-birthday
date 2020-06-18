@@ -2,21 +2,29 @@ package command.add
 
 import common.sendMessage
 import database.TelegramUser
+import me.ivmg.telegram.Bot
 import me.ivmg.telegram.HandleUpdate
+import me.ivmg.telegram.entities.Update
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import questionstatemachine.answer.Answer
-import questionstatemachine.answer.Validator
 
 class DateOfBirthAnswer: Answer {
 
     override fun handlerUpdate(): HandleUpdate = { bot, update ->
+        saveSelf(bot, update, update.message!!.text.orEmpty())
+    }
+
+    override fun validator() = DateOfBirthValidator()
+
+
+    fun saveSelf(bot: Bot, update: Update, dateOfBirth: String){
         update.message?.from?.apply {
             transaction {
                 TelegramUser.insertIgnore { userRow ->
                     userRow[id] = this@apply.id
                     userRow[name] = firstName
-                    userRow[dateOfBirth] = update.message!!.text.orEmpty()
+                    userRow[TelegramUser.dateOfBirth] = dateOfBirth
                     if (lastName != null) userRow[secondName] = lastName
                     if (username != null) userRow[login] = "@$username"
                 }
@@ -27,6 +35,4 @@ class DateOfBirthAnswer: Answer {
             )
         }
     }
-
-    override fun validator(): Validator = DateOfBirthValidator()
 }
