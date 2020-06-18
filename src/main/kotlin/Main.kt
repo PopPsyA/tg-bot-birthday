@@ -1,6 +1,7 @@
 import command.TelegramCommand
 import command.add.AddBirthdayCommand
 import command.change.ChangeBirthdayCommand
+import command.secret.clear.ClearMyData
 import command.start.StartCommand
 import command.whenmybirthday.WhenMyBirthdayCommand
 import common.BirthdayCheckerService
@@ -22,6 +23,7 @@ import java.util.*
 fun main() {
     initDatabase()
     val telegramCommands = mutableListOf<TelegramCommand>()
+    val secretTelegramCommands = listOf(ClearMyData())
     bot {
         token = System.getenv("TOKEN")
         logLevel = HttpLoggingInterceptor.Level.NONE
@@ -34,6 +36,9 @@ fun main() {
             ).onEach { telegramCommand ->
                 addHandler(telegramCommand.handlerCommand())
             })
+            secretTelegramCommands.forEach { secretTelegramCommand ->
+                addHandler(secretTelegramCommand.handlerCommand())
+            }
             listOf(UnknownCommandHandler(telegramCommands), UserChatBinderHandler()).forEach { telegramCommandHandler ->
                 addHandler(telegramCommandHandler.handler())
             }
