@@ -26,7 +26,7 @@ fun main() {
     val secretTelegramCommands = listOf(ClearMyData())
     bot {
         token = System.getenv("TOKEN")
-        logLevel = HttpLoggingInterceptor.Level.NONE
+        logLevel = HttpLoggingInterceptor.Level.BASIC
         dispatch {
             telegramCommands.addAll(listOf(
                 StartCommand(),
@@ -54,6 +54,7 @@ fun main() {
             }
         )
         BirthdayCheckerService.listen(this)
+        println("hello mothefucka")
     }
 }
 
